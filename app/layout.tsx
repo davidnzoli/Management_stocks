@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import Sidebar from "@/components/sideBar";
+import NavBar from "@/components/navBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,9 +30,40 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
-        <Toaster />
+        <div className="flex w-[100%] ">
+          <main className="flex-grow w-[100%] items-center justify-center p-6 mt-16 overflow-auto">
+            {children}
+          </main>
+          <Toaster />
+        </div>
       </body>
     </html>
   );
 }
+
+// // app/layout.jsx
+// "use client
+
+// // Configuration de la police Poppins
+// const poppins = Poppins({
+//   subsets: ["latin"],
+//   weight: ["300", "400", "500", "600", "700"],
+// })
+
+// export default function RootLayout({ children }) {
+//   return (
+//     <html lang="fr">
+//       <body className={`${poppins.className} bg-gray-100`}>
+//         <div className="flex h-screen">
+//           <Sidebar />
+//           <div className="flex flex-col flex-grow ml-60">
+//             <NavBar />
+//             <main className="flex-grow p-6 mt-16 overflow-auto">
+//               {children}
+//             </main>
+//           </div>
+//         </div>
+//       </body>
+//     </html>
+//   )
+// }

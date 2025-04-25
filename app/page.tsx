@@ -1,11 +1,5 @@
-"use client";
+import { redirect } from "next/navigation";
 
-import React from "react";
-
-export default function Page() {
-  return (
-    <>
-      <h1>JE SUIS LA PAGE D'ACCEUIL danger</h1>
-    </>
-  );
+export default function Home() {
+  redirect("/Dashboard");
 }

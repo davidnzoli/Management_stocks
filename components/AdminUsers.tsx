@@ -227,8 +227,8 @@ export default function DataTableUsers() {
   });
 
   return (
-    <div className="w-full flex flex-col items-center font-poppins">
-      <div className="w-[60%] flex justify-between items-center py-4 gap-5">
+    <div className="w-[100%] flex flex-col items-center font-poppins">
+      <div className="w-[100%] flex justify-between items-center py-4 gap-5">
         <Input
           placeholder="Filtrer par email..."
           value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
@@ -271,7 +271,7 @@ export default function DataTableUsers() {
         </Dialog>
       </div>
 
-      <div className="w-[60%] rounded-md border">
+      <div className="w-[100%] rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -320,7 +320,7 @@ export default function DataTableUsers() {
         </Table>
       </div>
 
-      <div className="w-[60%] flex items-center justify-between py-4">
+      <div className="w-[100%] flex items-center justify-between py-4">
         <div className="flex-1 text-sm text-muted-foreground">
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
           {table.getFilteredRowModel().rows.length} ligne(s) sélectionnée(s).

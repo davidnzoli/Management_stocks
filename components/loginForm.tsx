@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 export function LoginForm({
   className,
@@ -39,8 +39,8 @@ export function LoginForm({
       const data = await res.json();
       if (data.token) {
         // Stocke le token dans un cookie
-        Cookies.set('token', data.token, { expires: 1 });  // Le cookie expire après 1 jour
-    
+        Cookies.set("token", data.token, { expires: 1 }); // Le cookie expire après 1 jour
+
         // Redirige vers le tableau de bord approprié
         window.location.href = data.redirectUrl;
       } else {
@@ -76,12 +76,18 @@ export function LoginForm({
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
-        <CardHeader>
-          <CardTitle>Gb_Stock</CardTitle>
+        <CardHeader className="flex flex-col justify-center items-center gap-3">
+          <CardTitle className="text-[25px] text-green-500 font-bold">
+            Gb_Stock
+          </CardTitle>
+          <h1 className="text-black text-start font-bold text-[20px]">
+            Se connecter
+          </h1>
           <CardDescription className="flex flex-col justify-center items-center gap-3">
-            <h1 className="text-black text-start font-bold text-[20px]">
-              Se connecter
-            </h1>
+            <span className="text-center">
+              Utilisez ce formulaire pour s'authentifier ou se connecter et
+              acceder dans votre espace en fonction de votre rôle et permission.{" "}
+            </span>
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -110,11 +116,8 @@ export function LoginForm({
 
               {error && <p className="text-red-500 text-sm">{error}</p>}
 
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full cursor-pointer">
                 Connectez-vous
-              </Button>
-              <Button variant="outline" className="w-full">
-                Connexion avec Google
               </Button>
             </div>
           </form>
