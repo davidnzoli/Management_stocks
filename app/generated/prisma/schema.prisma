@@ -27,3 +27,24 @@ enum Role {
   caissier
   invité
 }
+
+model Product {
+  id String @id @default(uuid())
+
+  nomProduit  String
+  description String?
+  prix        Float
+  quantite    Int
+  categorieId String?
+  categorie   Categorie? @relation("CategorieProducts", fields: [categorieId], references: [id])
+  codeBarre   String     @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Categorie {
+  id           String    @id @default(uuid())
+  nomCategorie String
+  products     Product[] @relation("CategorieProducts")
+}
