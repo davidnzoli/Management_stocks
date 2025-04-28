@@ -8,8 +8,7 @@ export async function GET() {
   return Response.json(users);
 }
 
-// ✅ Liste des rôles autorisés (les valeurs de l'enum)
-const allowedRoles = Object.values(Role); // ['admin', 'caissier', 'invité']
+const allowedRoles = Object.values(Role); 
 
 export async function POST(req: Request) {
   try {

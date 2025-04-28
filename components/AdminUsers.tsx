@@ -192,7 +192,6 @@ export default function DataTableUsers() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Le Dialog est en dehors du DropdownMenuContent */}
             <Dialog open={open} onOpenChange={setOpen}>
               <DialogContent>
                 <UpdateUsers
