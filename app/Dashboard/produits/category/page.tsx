@@ -205,6 +205,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import AddCategory from "@/components/AddCategory_popup";
 import Pagination from "@/components/pagination";
+import { Trash, Edit } from "lucide-react";
 
 interface Categorie {
   id: string;
@@ -217,7 +218,7 @@ export default function Categoryproduit() {
   const [opens, setOpens] = React.useState(false);
   const [categories, setCategories] = useState<Categorie[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [categoriesPerPage] = useState(10);
+  const [categoriesPerPage] = useState(7);
 
   useEffect(() => {
     async function fetchCategories() {
@@ -273,6 +274,7 @@ export default function Categoryproduit() {
             <TableHead className="font-medium">ID</TableHead>
             <TableHead className="font-medium">DESIGNATIONS</TableHead>
             <TableHead className="text-right font-medium">CATEGORIES</TableHead>
+            <TableHead className="text-center">ACTIONS</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -283,6 +285,29 @@ export default function Categoryproduit() {
                 <TableCell>{categorie.designationCategorie}</TableCell>
                 <TableCell className="text-right">
                   {categorie.nomCategorie}
+                </TableCell>
+                <TableCell className="text-right">
+                  <div className="text-center flex items-center justify-center gap-2">
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        console.log("Suppression de l'élément");
+                      }}
+                      className="flex items-center cursor-pointer space-x-2 "
+                    >
+                      <Trash className="h-5 w-5 text-red-500" />
+                    </Button>
+
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        console.log("Mise à jour de l'élément");
+                      }}
+                      className="flex items-center cursor-pointer space-x-2"
+                    >
+                      <Edit className="h-5 w-5 text-blue-500" />
+                    </Button>
+                  </div>
                 </TableCell>
               </TableRow>
             ))
