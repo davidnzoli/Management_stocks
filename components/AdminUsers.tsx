@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { toast } from "sonner";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -42,9 +43,9 @@ import {
 } from "@/components/ui/table";
 import AddUsers from "@/components/AddUsers_popup";
 import UpdateUsers from "@/components/UpdateUsers";
-import { toast } from "sonner";
 import DeletePopup from "@/components/deletePopup";
 import { useState } from "react";
+import { DialogTitle } from "@radix-ui/react-dialog";
 export type User = {
   id: string;
   email: string;
@@ -194,6 +195,7 @@ export default function DataTableUsers() {
 
             <Dialog open={open} onOpenChange={setOpen}>
               <DialogContent>
+                <DialogTitle></DialogTitle>
                 <UpdateUsers
                   userId={user.id}
                   onClose={() => setOpen(false)}

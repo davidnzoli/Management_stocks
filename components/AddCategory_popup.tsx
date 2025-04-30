@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { toast } from "sonner";
 import {
   DialogContent,
   DialogHeader,
@@ -52,6 +53,7 @@ export default function AddCategory({ onClose }: AddDataDialogContent) {
       console.log("categorie ajouté :", categorie);
       setFormDatas({ nomCategorie: "", designationCategorie: "" });
       onClose();
+      toast.success("categorie ajouté avec succès ✅");
     } catch (error) {
       console.error("Erreur lors de l'ajout :", error);
     }

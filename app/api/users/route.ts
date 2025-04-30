@@ -8,7 +8,7 @@ export async function GET() {
   return Response.json(users);
 }
 
-const allowedRoles = Object.values(Role); 
+const allowedRoles = Object.values(Role);
 
 export async function POST(req: Request) {
   try {

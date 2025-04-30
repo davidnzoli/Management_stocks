@@ -35,7 +35,7 @@ model Product {
   description  String?
   prix         Float
   quantite     Int
-  categorieId  Int?
+  categorieId  String?
   categorie    Categorie? @relation("CategorieProducts", fields: [categorieId], references: [id])
   codeBarre    String     @unique
   createdAt    DateTime   @default(now())
@@ -43,7 +43,7 @@ model Product {
 }
 
 model Categorie {
-  id           Int     @id @default(autoincrement())
+  id           String     @id @default(uuid())
   nomCategorie String
   designationCategorie String
   products     Product[]  @relation("CategorieProducts")

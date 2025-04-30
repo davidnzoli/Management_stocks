@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { toast } from "sonner";
 import {
   DialogContent,
   DialogHeader,
@@ -67,6 +68,7 @@ export default function UpdateUsers({
       });
       onUpdate();
       onClose();
+      toast.success("Utilisateur modifié avec succès ✅");
     } catch (error) {
       console.error("Erreur de mise à jour :", error);
     } finally {
