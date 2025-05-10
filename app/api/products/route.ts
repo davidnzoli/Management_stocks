@@ -3,23 +3,23 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const categories = await prisma.categorie.findMany();
+    const categorie = await prisma.categorie.findMany();
 
     return NextResponse.json(
       {
         success: true,
-        message: "Liste des catégories récupérée avec succès.",
-        data: categories,
+        message: "Liste des categorie récupérée avec succès.",
+        data: categorie,
       },
       { status: 200 }
     );
   } catch (error) {
-    console.error("Erreur lors de la récupération des catégories :", error);
+    console.error("Erreur lors de la récupération des categories :", error);
 
     return NextResponse.json(
       {
         success: false,
-        message: "Erreur serveur. Impossible de récupérer les catégories.",
+        message: "Erreur serveur. Impossible de récupérer les categories.",
         error: error instanceof Error ? error.message : "Erreur inconnue",
       },
       { status: 500 }

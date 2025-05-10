@@ -229,7 +229,7 @@ export default function DataTableUsers() {
 
   return (
     <div className="w-[100%] flex flex-col items-center font-poppins">
-      <div className="w-[100%] flex justify-between items-center py-4 gap-5">
+      <div className="w-[100%] bg-white flex justify-between items-center p-5 mb-8 gap-5">
         <Input
           placeholder="Filtrer par email..."
           value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}

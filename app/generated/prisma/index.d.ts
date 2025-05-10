@@ -2294,7 +2294,7 @@ export namespace Prisma {
     prix: number
     quantite: number
     categorieId: string | null
-    codeBarre: string
+    codeBarre: string | null
     createdAt: Date
     updatedAt: Date
     _count: ProductCountAggregateOutputType | null
@@ -2392,7 +2392,7 @@ export namespace Prisma {
       prix: number
       quantite: number
       categorieId: string | null
-      codeBarre: string
+      codeBarre: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["product"]>
@@ -4518,7 +4518,7 @@ export namespace Prisma {
     prix?: FloatFilter<"Product"> | number
     quantite?: IntFilter<"Product"> | number
     categorieId?: StringNullableFilter<"Product"> | string | null
-    codeBarre?: StringFilter<"Product"> | string
+    codeBarre?: StringNullableFilter<"Product"> | string | null
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
     categorie?: XOR<CategorieNullableScalarRelationFilter, CategorieWhereInput> | null
@@ -4531,7 +4531,7 @@ export namespace Prisma {
     prix?: SortOrder
     quantite?: SortOrder
     categorieId?: SortOrderInput | SortOrder
-    codeBarre?: SortOrder
+    codeBarre?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     categorie?: CategorieOrderByWithRelationInput
@@ -4539,7 +4539,6 @@ export namespace Prisma {
 
   export type ProductWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    codeBarre?: string
     AND?: ProductWhereInput | ProductWhereInput[]
     OR?: ProductWhereInput[]
     NOT?: ProductWhereInput | ProductWhereInput[]
@@ -4548,10 +4547,11 @@ export namespace Prisma {
     prix?: FloatFilter<"Product"> | number
     quantite?: IntFilter<"Product"> | number
     categorieId?: StringNullableFilter<"Product"> | string | null
+    codeBarre?: StringNullableFilter<"Product"> | string | null
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
     categorie?: XOR<CategorieNullableScalarRelationFilter, CategorieWhereInput> | null
-  }, "id" | "codeBarre">
+  }, "id">
 
   export type ProductOrderByWithAggregationInput = {
     id?: SortOrder
@@ -4560,7 +4560,7 @@ export namespace Prisma {
     prix?: SortOrder
     quantite?: SortOrder
     categorieId?: SortOrderInput | SortOrder
-    codeBarre?: SortOrder
+    codeBarre?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ProductCountOrderByAggregateInput
@@ -4580,7 +4580,7 @@ export namespace Prisma {
     prix?: FloatWithAggregatesFilter<"Product"> | number
     quantite?: IntWithAggregatesFilter<"Product"> | number
     categorieId?: StringNullableWithAggregatesFilter<"Product"> | string | null
-    codeBarre?: StringWithAggregatesFilter<"Product"> | string
+    codeBarre?: StringNullableWithAggregatesFilter<"Product"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
   }
@@ -4692,7 +4692,7 @@ export namespace Prisma {
     description?: string | null
     prix: number
     quantite: number
-    codeBarre: string
+    codeBarre?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     categorie?: CategorieCreateNestedOneWithoutProductsInput
@@ -4705,7 +4705,7 @@ export namespace Prisma {
     prix: number
     quantite: number
     categorieId?: string | null
-    codeBarre: string
+    codeBarre?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -4716,7 +4716,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     prix?: FloatFieldUpdateOperationsInput | number
     quantite?: IntFieldUpdateOperationsInput | number
-    codeBarre?: StringFieldUpdateOperationsInput | string
+    codeBarre?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categorie?: CategorieUpdateOneWithoutProductsNestedInput
@@ -4729,7 +4729,7 @@ export namespace Prisma {
     prix?: FloatFieldUpdateOperationsInput | number
     quantite?: IntFieldUpdateOperationsInput | number
     categorieId?: NullableStringFieldUpdateOperationsInput | string | null
-    codeBarre?: StringFieldUpdateOperationsInput | string
+    codeBarre?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4741,7 +4741,7 @@ export namespace Prisma {
     prix: number
     quantite: number
     categorieId?: string | null
-    codeBarre: string
+    codeBarre?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -4752,7 +4752,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     prix?: FloatFieldUpdateOperationsInput | number
     quantite?: IntFieldUpdateOperationsInput | number
-    codeBarre?: StringFieldUpdateOperationsInput | string
+    codeBarre?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4764,7 +4764,7 @@ export namespace Prisma {
     prix?: FloatFieldUpdateOperationsInput | number
     quantite?: IntFieldUpdateOperationsInput | number
     categorieId?: NullableStringFieldUpdateOperationsInput | string | null
-    codeBarre?: StringFieldUpdateOperationsInput | string
+    codeBarre?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5390,7 +5390,7 @@ export namespace Prisma {
     description?: string | null
     prix: number
     quantite: number
-    codeBarre: string
+    codeBarre?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -5401,7 +5401,7 @@ export namespace Prisma {
     description?: string | null
     prix: number
     quantite: number
-    codeBarre: string
+    codeBarre?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -5442,7 +5442,7 @@ export namespace Prisma {
     prix?: FloatFilter<"Product"> | number
     quantite?: IntFilter<"Product"> | number
     categorieId?: StringNullableFilter<"Product"> | string | null
-    codeBarre?: StringFilter<"Product"> | string
+    codeBarre?: StringNullableFilter<"Product"> | string | null
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
   }
@@ -5453,7 +5453,7 @@ export namespace Prisma {
     description?: string | null
     prix: number
     quantite: number
-    codeBarre: string
+    codeBarre?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -5464,7 +5464,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     prix?: FloatFieldUpdateOperationsInput | number
     quantite?: IntFieldUpdateOperationsInput | number
-    codeBarre?: StringFieldUpdateOperationsInput | string
+    codeBarre?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5475,7 +5475,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     prix?: FloatFieldUpdateOperationsInput | number
     quantite?: IntFieldUpdateOperationsInput | number
-    codeBarre?: StringFieldUpdateOperationsInput | string
+    codeBarre?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5486,7 +5486,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     prix?: FloatFieldUpdateOperationsInput | number
     quantite?: IntFieldUpdateOperationsInput | number
-    codeBarre?: StringFieldUpdateOperationsInput | string
+    codeBarre?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

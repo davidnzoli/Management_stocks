@@ -1,191 +1,3 @@
-// "use client";
-// import * as React from "react";
-// import { useEffect, useState } from "react";
-// import {
-//   Table,
-//   TableBody,
-//   TableCaption,
-//   TableCell,
-//   TableHead,
-//   TableHeader,
-//   TableRow,
-// } from "@/components/ui/table";
-
-// import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-// import { Input } from "@/components/ui/input";
-// import { Button } from "@/components/ui/button";
-// import { ArrowRight } from "lucide-react";
-// import AddCategory from "@/components/AddCategory_popup";
-// import Pagination from "@/components/pagination";
-// import { Trash, Edit } from "lucide-react";
-
-// interface Categorie {
-//   id: string;
-//   nomCategorie: string;
-//   designationCategorie: string;
-// }
-
-// export default function Categoryproduit() {
-//   const [open, setOpen] = React.useState(false);
-//   const [opens, setOpens] = React.useState(false);
-//   const [categories, setCategories] = useState<Categorie[]>([]);
-//   const [currentPage, setCurrentPage] = useState(1);
-//   const [categoriesPerPage] = useState(7);
-
-//   useEffect(() => {
-//     async function fetchCategories() {
-//       const res = await fetch("/api/products");
-//       const data = await res.json();
-//       setCategories(data.data);
-//     }
-
-//     fetchCategories();
-//   }, []);
-
-//   const totalCategories = categories.length;
-//   const totalPages = Math.ceil(totalCategories / categoriesPerPage);
-//   const indexOfLastCategory = currentPage * categoriesPerPage;
-//   const indexOfFirstCategory = indexOfLastCategory - categoriesPerPage;
-//   const currentCategories = categories.slice(
-//     indexOfFirstCategory,
-//     indexOfLastCategory
-//   );
-
-//   const handlePageChange = (pageNumber: number) => {
-//     setCurrentPage(pageNumber);
-//   };
-
-//   // Fonction de suppression
-//   const handleDelete = async (id: string) => {
-//     const res = await fetch(`/api/products/${id}`, {
-//       method: "DELETE",
-//     });
-
-//     if (res.ok) {
-//       // Mettre à jour l'état après suppression
-//       setCategories(categories.filter((categorie) => categorie.id !== id));
-//     } else {
-//       console.error("Erreur lors de la suppression de la catégorie.");
-//     }
-//   };
-
-//   // Fonction de mise à jour
-//   const handleUpdate = async (id: string) => {
-//     // Remplir les données de mise à jour ici (par exemple, avec un formulaire modifiable)
-//     const updatedData = {
-//       nomCategorie: "Updated Category", // Exemple de nouvelle donnée
-//       designationCategorie: "Updated Designation", // Exemple de nouvelle donnée
-//     };
-
-//     const res = await fetch(`/api/products/${id}`, {
-//       method: "PUT",
-//       body: JSON.stringify(updatedData),
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     });
-
-//     if (res.ok) {
-//       // Mettre à jour l'état après modification
-//       const updatedCategory = await res.json();
-//       setCategories((prevCategories) =>
-//         prevCategories.map((categorie) =>
-//           categorie.id === id ? updatedCategory : categorie
-//         )
-//       );
-//     } else {
-//       console.error("Erreur lors de la mise à jour de la catégorie.");
-//     }
-//   };
-
-//   return (
-//     <>
-//       <div className="flex h-16 my-6 bg-white px-5 justify-between items-center gap-3.5">
-//         <div className="flex justify-center items-center gap-2">
-//           <Input
-//             type="category"
-//             className="w-70"
-//             placeholder="Filtrer par nom de categorie"
-//           />
-//         </div>
-//         <div className="flex justify-center items-center gap-2">
-//           <Button className="bg-green-950 cursor-pointer flex items-center">
-//             Appliquer
-//           </Button>
-//           <Dialog open={opens} onOpenChange={setOpens}>
-//             <DialogTrigger asChild>
-//               <Button className="bg-green-500 cursor-pointer flex items-center">
-//                 Ajouter
-//                 <ArrowRight className="ml-2 h-4 w-4" />
-//               </Button>
-//             </DialogTrigger>
-//             <AddCategory onClose={() => setOpens(false)} />
-//           </Dialog>
-//         </div>
-//       </div>
-//       <Table>
-//         <TableHeader>
-//           <TableRow>
-//             <TableHead className="font-bold">ID</TableHead>
-//             <TableHead className="font-bold">DESIGNATIONS</TableHead>
-//             <TableHead className="text-right font-bold">CATEGORIES</TableHead>
-//             <TableHead className="text-center font-bold">ACTIONS</TableHead>
-//           </TableRow>
-//         </TableHeader>
-//         <TableBody>
-//           {currentCategories && currentCategories.length > 0 ? (
-//             currentCategories.map((categorie) => (
-//               <>
-//                 <TableRow key={categorie.id}>
-//                   <TableCell>{categorie.id}</TableCell>
-//                   <TableCell>{categorie.designationCategorie}</TableCell>
-//                   <TableCell className="text-right">
-//                     {categorie.nomCategorie}
-//                   </TableCell>
-//                   <TableCell className="text-right">
-//                     <div className="text-center flex items-center justify-center gap-2">
-//                       <Button
-//                         variant="outline"
-//                         onClick={() => handleDelete(categorie.id)}
-//                         className="flex items-center cursor-pointer space-x-2 "
-//                       >
-//                         <Trash className="h-5 w-5 text-red-500" />
-//                       </Button>
-
-//                       <Button
-//                         variant="outline"
-//                         onClick={() => {
-//                           console.log("Mise à jour de l'élément");
-//                         }}
-//                         className="flex items-center cursor-pointer space-x-2"
-//                       >
-//                         <Edit className="h-5 w-5 text-blue-500" />
-//                       </Button>
-//                     </div>
-//                   </TableCell>
-//                 </TableRow>
-//               </>
-//             ))
-//           ) : (
-//             <TableRow>
-//               <TableCell colSpan={3} className="text-center">
-//                 Aucune catégorie trouvée
-//               </TableCell>
-//             </TableRow>
-//           )}
-//         </TableBody>
-//       </Table>
-//       <div className="flex justify-center mt-4">
-//         <Pagination
-//           currentPage={currentPage}
-//           totalPages={totalPages}
-//           onPageChange={handlePageChange}
-//         />
-//       </div>
-//     </>
-//   );
-// }
-
 "use client";
 import * as React from "react";
 import { useEffect, useState } from "react";
@@ -257,7 +69,7 @@ export default function Categoryproduit() {
 
   return (
     <>
-      <div className="flex h-16 bg-white px-5 justify-between items-center gap-3.5">
+      <div className="flex h-16 bg-white p-9 mb-1 justify-between items-center gap-3.5">
         <div className="flex justify-center items-center gap-2">
           <Input
             type="category"
@@ -283,7 +95,7 @@ export default function Categoryproduit() {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="font-medium">ID</TableHead>
+            {/* <TableHead className="font-medium">ID</TableHead> */}
             <TableHead className="font-medium">DESIGNATIONS</TableHead>
             <TableHead className="text-right font-medium">CATEGORIES</TableHead>
             <TableHead className="text-center">ACTIONS</TableHead>
@@ -293,7 +105,7 @@ export default function Categoryproduit() {
           {currentCategories && currentCategories.length > 0 ? (
             currentCategories.map((categorie) => (
               <TableRow key={categorie.id}>
-                <TableCell>{categorie.id}</TableCell>
+                {/* <TableCell>{categorie.id}</TableCell> */}
                 <TableCell>{categorie.designationCategorie}</TableCell>
                 <TableCell className="text-right">
                   {categorie.nomCategorie}
@@ -339,7 +151,7 @@ export default function Categoryproduit() {
           )}
         </DialogContent>
       </Dialog>
-      <div className="flex justify-center mt-4">
+      <div className="flex justify-center mt-2">
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
