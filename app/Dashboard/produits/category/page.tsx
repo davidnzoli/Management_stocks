@@ -95,7 +95,6 @@ export default function Categoryproduit() {
       <Table>
         <TableHeader>
           <TableRow>
-            {/* <TableHead className="font-medium">ID</TableHead> */}
             <TableHead className="font-medium">DESIGNATIONS</TableHead>
             <TableHead className="text-right font-medium">CATEGORIES</TableHead>
             <TableHead className="text-center">ACTIONS</TableHead>
@@ -105,7 +104,6 @@ export default function Categoryproduit() {
           {currentCategories && currentCategories.length > 0 ? (
             currentCategories.map((categorie) => (
               <TableRow key={categorie.id}>
-                {/* <TableCell>{categorie.id}</TableCell> */}
                 <TableCell>{categorie.designationCategorie}</TableCell>
                 <TableCell className="text-right">
                   {categorie.nomCategorie}

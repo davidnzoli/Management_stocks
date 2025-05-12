@@ -10,26 +10,27 @@ import {
   AlertDialogCancel,
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
+
 import { Button } from "./ui/button";
 import { Trash, Edit } from "lucide-react";
-export default function DeletePopupCategory({
-  categoryId,
+export default function DeletePopupProduit({
+  produitId,
   onDeletes,
 }: {
-  categoryId: string;
+  produitId: string;
   onDeletes: (id: string) => void;
 }) {
-  const handleDelete = async () => {
+  const handleDeleteProduit = async () => {
     try {
-      const res = await fetch(`/api/products/${categoryId}`, {
+      const res = await fetch(`/api/products2/${produitId}`, {
         method: "DELETE",
       });
 
       const result = await res.json();
 
       if (res.ok) {
-        toast.success("Catégorie supprimée avec succès ✅");
-        onDeletes(categoryId);
+        toast.success("Produit supprimé avec succès ✅");
+        onDeletes(produitId);
       } else {
         toast.error(result.error || "Erreur lors de la suppression ❌");
       }
@@ -45,16 +46,16 @@ export default function DeletePopupCategory({
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Confirmer la suppression</AlertDialogTitle>
-          <AlertDialogDescription>
-            Êtes-vous sûr de vouloir supprimer cette catégorie ? Cette action
-            est irréversible.
+          <AlertDialogDescription className="">
+            Êtes-vous sûr de vouloir supprimer ce produit ? Cette action est
+            irréversible.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Annuler</AlertDialogCancel>
           <AlertDialogAction
             className="bg-red-500 text-white"
-            onClick={handleDelete}
+            onClick={handleDeleteProduit}
           >
             Confirmer
           </AlertDialogAction>

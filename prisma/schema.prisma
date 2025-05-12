@@ -30,13 +30,13 @@ enum Role {
 
 model Product {
   id           String     @id @default(uuid())
-  nomProduit   String
+  nomProduit   String     @unique
   description  String?
   prix         Float
   quantite     Int
   categorieId  String?
   categorie    Categorie? @relation("CategorieProducts", fields: [categorieId], references: [id])
-  codeBarre    String?     @default("null")
+  codeBarre    String?    @unique
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
 }

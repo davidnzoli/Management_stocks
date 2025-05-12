@@ -23,22 +23,7 @@ import {
   // SelectViewport,
   SelectItem,
 } from "@/components/ui/select";
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-} from "@/components/ui/popover";
-import {
-  Command,
-  CommandGroup,
-  CommandItem,
-  CommandInput,
-  CommandList,
-  CommandEmpty,
-} from "@/components/ui/command";
-import { ChevronsUpDown, Check } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { CategorieSelect } from "./categorieSelect";
+
 import { SelectViewport } from "@radix-ui/react-select";
 
 interface Categorie {
@@ -115,7 +100,13 @@ export default function AddProduit({ onClosed }: AddDataDialogContent) {
         const err = await res.json();
         throw new Error(err.error || "Erreur lors de l'ajout de produit");
       }
-
+      if (res.status === 409) {
+        toast.error(
+          "Conflit de données : doublon détecté. Cette element existe déjà !"
+        );
+      } else {
+        toast.error("Erreur lors de la mise à jour.");
+      }
       setFormData({
         nomProduit: "",
         description: "",

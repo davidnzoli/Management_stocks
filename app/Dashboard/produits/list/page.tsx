@@ -21,20 +21,31 @@ import Pagination from "@/components/pagination";
 import { Trash, Edit } from "lucide-react";
 import UpdatedCategory from "@/components/updateCategory";
 import AddProduit from "@/components/AddProduit_popup";
+import UpdatedProduit from "@/components/UpdateProduit";
+import DeletePopupProduit from "@/components/deletePopupProduit";
 
 interface Categorie {
   id: string;
   nomCategorie: string;
   designationCategorie: string;
 }
+interface Products {
+  id: string;
+  nomProduit: string;
+  description: string;
+  prix: string;
+  quantite: string;
+  codeBarre: string;
+  categorie: Categorie;
+}
 
 export default function ListeProduits() {
   const [openDialogueProduit, setOpenDialogueProduit] = React.useState(false);
   const [openProduit, setOpenProduit] = React.useState(false);
-  const [categories, setCategories] = useState<Categorie[]>([]);
+  const [produits, setProduits] = useState<Products[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [categoriesPerPage] = useState(7);
-  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(
+  const [selectedProductId, setSelectedProductId] = useState<string | null>(
     null
   );
 
@@ -44,14 +55,14 @@ export default function ListeProduits() {
       const resulta = await res.json();
 
       if (Array.isArray(resulta.data)) {
-        setCategories(resulta.data);
+        setProduits(resulta.data);
       } else {
         console.error("Structure inattendue:", resulta);
-        setCategories([]);
+        setProduits([]);
       }
     } catch (error) {
       console.error("Erreur lors du fetch:", error);
-      setCategories([]);
+      setProduits([]);
     }
   }
 
@@ -59,12 +70,12 @@ export default function ListeProduits() {
     fetchCategories();
   }, []);
 
-  const totalCategories = categories.length;
+  const totalCategories = produits.length;
   const totalPages = Math.ceil(totalCategories / categoriesPerPage);
 
   const indexOfLastCategory = currentPage * categoriesPerPage;
   const indexOfFirstCategory = indexOfLastCategory - categoriesPerPage;
-  const currentCategories = categories.slice(
+  const currentCategories = produits.slice(
     indexOfFirstCategory,
     indexOfLastCategory
   );
@@ -73,10 +84,12 @@ export default function ListeProduits() {
     setCurrentPage(pageNumber);
   };
 
-  const [allUsers, setAllUsers] = useState(categories);
+  const [allUsers, setAllUsers] = useState(produits);
 
-  const handleDelete = (id: string) => {
-    setAllUsers((prev) => prev.filter((categorie) => categorie.id !== id));
+  const handleDeleteProduit = (id: string) => {
+    setAllUsers((prev) =>
+      prev.filter((produitItems) => produitItems.id !== id)
+    );
   };
 
   return (
@@ -112,29 +125,41 @@ export default function ListeProduits() {
             <TableHead className="text-right font-medium">PRIX</TableHead>
             <TableHead className="text-right font-medium">QUANTITES</TableHead>
             <TableHead className="text-right font-medium">CATEGORIES</TableHead>
-            <TableHead className="text-right font-medium">CATEGORIES</TableHead>
+            <TableHead className="text-right font-medium">CODE BARRE</TableHead>
             <TableHead className="text-center">ACTIONS</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {Array.isArray(currentCategories) && currentCategories.length > 0 ? (
-            currentCategories.map((categorie) => (
-              <TableRow key={categorie.id}>
-                {/* <TableCell>{categorie.id}</TableCell> */}
-                <TableCell>{categorie.designationCategorie}</TableCell>
-                <TableCell className="text-right">
-                  {categorie.nomCategorie}
+          {currentCategories && currentCategories.length > 0 ? (
+            currentCategories.map((produitItems) => (
+              <TableRow key={produitItems.id}>
+                <TableCell>{produitItems.nomProduit}</TableCell>
+                <TableCell className="text-start">
+                  {produitItems.description}
+                </TableCell>
+                <TableCell className="text-center">
+                  {produitItems.prix}
+                </TableCell>
+                <TableCell className="text-center">
+                  {produitItems.quantite}
+                </TableCell>
+                <TableCell className="text-center">
+                  {produitItems.categorie?.nomCategorie ?? "Non défini"}
                 </TableCell>
                 <TableCell className="text-right">
+                  {produitItems.codeBarre}
+                </TableCell>
+
+                <TableCell className="text-right">
                   <div className="text-center flex items-center justify-center gap-2">
-                    <DeletePopupCategory
-                      categoryId={categorie.id}
-                      onDeletes={handleDelete}
+                    <DeletePopupProduit
+                      produitId={produitItems.id}
+                      onDeletes={handleDeleteProduit}
                     />
                     <Button
                       variant="outline"
                       onClick={() => {
-                        setSelectedCategoryId(categorie.id);
+                        setSelectedProductId(produitItems.id);
                         setOpenDialogueProduit(true);
                       }}
                       className="flex items-center cursor-pointer space-x-2"
@@ -157,9 +182,9 @@ export default function ListeProduits() {
       <Dialog open={openDialogueProduit} onOpenChange={setOpenDialogueProduit}>
         <DialogContent>
           <DialogTitle>Modifier le produit</DialogTitle>
-          {selectedCategoryId && (
-            <UpdatedCategory
-              categoryId={selectedCategoryId}
+          {selectedProductId && (
+            <UpdatedProduit
+              produitId={selectedProductId}
               onClose={() => setOpenDialogueProduit(false)}
               onUpdate={fetchCategories}
             />
